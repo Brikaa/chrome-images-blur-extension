@@ -23,6 +23,10 @@ if (ruleIndex === -1) {
   rule = sheet.cssRules[ruleIndex];
 }
 
+chrome.storage.local.get('blur', (result) => {
+  rule.style.filter = `blur(${result.blur}px)`;
+});
+
 chrome.storage.onChanged.addListener((changes) => {
   if ('blur' in changes) {
     const newValue = changes['blur'].newValue;
