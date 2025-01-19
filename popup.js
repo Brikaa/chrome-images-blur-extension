@@ -6,6 +6,5 @@ chrome.storage.local.get('blur', (result) => {
 
 slider.addEventListener('change', (e) => {
   const value = e.target.value;
-  chrome.runtime.sendMessage({ type: 'setBlur', value });
   chrome.storage.local.set({ blur: value });
 });
