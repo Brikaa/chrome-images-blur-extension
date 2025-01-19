@@ -1,0 +1,2 @@
+- Create a chrome extension that adds filter: blur(ypx) to img tag
+  - where y is retrieved from a slider in the extension's UI
