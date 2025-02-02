@@ -1,10 +1,14 @@
 <html>
 
 <body>
-    <input type="checkbox" id="globalCheckbox"><label>Enable on all domains</label><br>
-    <div id="allDomainsDiv"><input type="checkbox" id="domainCheckbox"><label>Enable on <span id="domain"></span></label>
+    <div id="allDomainsDiv"><input type="checkbox" id="domainCheckbox"><label>Special settings for <span
+                id="domain"></span></label>
     </div>
     <input id="blurSlider" type="range" min="0" max="100">
+    <div id="domainSpecific" style="display: none">
+        <label>Domain-specific blur</label>
+        <input id="domainBlurSlider" type="range" min="0" max="100" value="0">
+    </div>
     <script src="popup.js"></script>
 </body>
 
