@@ -31,6 +31,7 @@ const setDomainDiv = () => {
     if (domainCheckbox.checked) {
       chrome.storage.local.set({ [domainName]: domainSlider.value });
     } else {
+      chrome.storage.local.set({ [domainName]: slider.value });
       chrome.storage.local.remove([domainName]);
     }
   });

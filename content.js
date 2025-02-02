@@ -13,10 +13,10 @@ chrome.storage.local.get(['blur', domainName], (result) => {
 });
 
 chrome.storage.onChanged.addListener((changes) => {
-  if (domainName in changes) {
+  if (domainName in changes && 'newValue' in changes[domainName]) {
     const newValue = changes[domainName].newValue;
     rule.style.filter = `blur(${newValue}px)`;
-  } else if ('blur' in changes) {
+  } else if ('blur' in changes && 'newValue' in changes.blur) {
     chrome.storage.local.get([domainName], (result) => {
       if (!result[domainName]) {
         const newValue = changes['blur'].newValue;
