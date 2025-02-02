@@ -22,6 +22,9 @@ const setDomainDiv = () => {
     domainLabel.innerText = domainName;
   }
 
+  // Disable the checkbox if we can't get the name of the domain
+  if (domainName === null) domainCheckbox.disabled = true;
+
   // On domain-specific checkbox change, show/hide the domain-specific slider and store/remove the domain-specific value
   domainCheckbox.addEventListener('change', () => {
     setDomainDiv();

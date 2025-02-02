@@ -5,13 +5,23 @@ style.sheet = style.sheet ?? new StyleSheet();
 style.sheet.insertRule(`img { filter: blur(0) }`);
 const rule = style.sheet.cssRules[style.sheet.cssRules.length - 1];
 
-chrome.storage.local.get('blur', (result) => {
-  rule.style.filter = `blur(${result.blur}px)`;
+const domainName = window.location.host;
+
+chrome.storage.local.get(['blur', domainName], (result) => {
+  const value = result[domainName] ?? result.blur ?? 0;
+  rule.style.filter = `blur(${value}px)`;
 });
 
 chrome.storage.onChanged.addListener((changes) => {
-  if ('blur' in changes) {
-    const newValue = changes['blur'].newValue;
+  if (domainName in changes) {
+    const newValue = changes[domainName].newValue;
     rule.style.filter = `blur(${newValue}px)`;
+  } else if ('blur' in changes) {
+    chrome.storage.local.get([domainName], (result) => {
+      if (!result[domainName]) {
+        const newValue = changes['blur'].newValue;
+        rule.style.filter = `blur(${newValue}px)`;
+      }
+    });
   }
 });
