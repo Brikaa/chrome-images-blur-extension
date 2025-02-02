@@ -1,27 +1,9 @@
-let style = document.querySelector('style');
+let style = document.createElement('style');
+document.head.appendChild(style);
 
-if (!style) {
-  style = document.createElement('style');
-  document.head.appendChild(style);
-}
-
-const sheet = style.sheet;
-
-let ruleIndex = -1;
-for (let i = 0; i < sheet.cssRules.length; i++) {
-  if (sheet.cssRules[i].selectorText === 'img') {
-    ruleIndex = i;
-    break;
-  }
-}
-
-let rule = null;
-if (ruleIndex === -1) {
-  sheet.insertRule(`img { filter: blur(0); }`, sheet.cssRules.length);
-  rule = sheet.cssRules[sheet.cssRules.length - 1];
-} else {
-  rule = sheet.cssRules[ruleIndex];
-}
+style.sheet = style.sheet ?? new StyleSheet();
+style.sheet.insertRule(`img { filter: blur(0) }`);
+const rule = style.sheet.cssRules[style.sheet.cssRules.length - 1];
 
 chrome.storage.local.get('blur', (result) => {
   rule.style.filter = `blur(${result.blur}px)`;
